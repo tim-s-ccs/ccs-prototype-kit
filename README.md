@@ -1,41 +1,40 @@
-# GOV.UK Prototype Kit
+# CCS Prototype Kit example
 
-Go to the [GOV.UK Prototype Kit site](https://govuk-prototype-kit.herokuapp.com/docs) to download the latest version and read the documentation.
+An example project on how can extend [GOV.UK Prototype Kit](https://github.com/alphagov/govuk-prototype-kit) using the CCS assets from [CCS-Frontend-Kit](https://github.com/Crown-Commercial-Service/CCS-Frontend-Kit).
 
-## About the Prototype Kit
+This project uses the GOV.UK Prototype Kit as a base so view [GOV.UK Prototype Kit site](https://govuk-prototype-kit.herokuapp.com/docs) for more detailed documentation on how GOV.UK Prototype Kit works.
 
-The Prototype Kit provides a simple way to make interactive prototypes that look like pages on GOV.UK. These prototypes can be used to show ideas to people you work with, and to do user research.
+## How this project was created
+This project was created with the following two steps:
 
-Read the [project principles](https://govuk-prototype-kit.herokuapp.com/docs/principles).
+1. Creating a clone the GOV.UK Prototype Kit at https://github.com/alphagov/govuk-prototype-kit
 
-## Make sure prototypes are password-protected
+2. Run the `add_ccs_frontend_assets.sh` script
 
-If you publish your prototypes online, they **must** be protected by a [username and password](https://govuk-prototype-kit.herokuapp.com/docs/publishing-on-heroku). This is to prevent members of the public finding prototypes and thinking they are real services.
+### The `add_ccs_frontend_assets.sh` script
+This script was created by `@tim-s-ccs` with the idea that the process for adding the CCS assets should be repeatable.
+The script goes through the following steps:
+* Removing existing CCS assets (if they exists). This is to allow for the scenario where the CCS-Frontend-Kit has been updated and the assets changed, anything obsolete will be removed and anything new will be added.
+* Install the `ccs-frontend-kit` package using `npm`
+* Copy the following static CCS assets to the `app/assets` folder:
+    * Images
+    * Fonts
+    * SVGs
+* Import `styles.scss` into the existing `application.scss`. As the assets are compiled into the `public/` folder in a single file, we do not need to copy all stylesheet files into the main application as the import will take care of this for us.
+* Import the JavaScript files and add them to the `app/views/includes/scripts.html` file so they are properly loaded in the application. Note, we do not import `JQuery` as it is already a part of the initial GOV.UK Prototype Kit project.
 
-You must protect user privacy at all times, even when using prototypes. Prototypes made with the kit look like GOV.UK, but do not have the same security provisions. Always make sure you are handling user data appropriately.
+## Use of this project
+This project is only meant to be an example of how we can use the CCS-Frontend-Kit with the GOV.UK Prototype Kit.
+It will not be updated as GOV.UK Prototype Kit is updated so should not be used for building real prototypes.
 
-## Installation instructions
+To create a real CCS Prototype Kit, the following steps should be undertaken:
+* Fork the [GOV.UK Prototype Kit](https://github.com/alphagov/govuk-prototype-kit)
+* Add and run the `add_ccs_frontend_assets.sh` script to import the assets needed from [CCS-Frontend-Kit](https://github.com/Crown-Commercial-Service/CCS-Frontend-Kit)
 
-- [Installation guide for new users (non technical)](https://govuk-prototype-kit.herokuapp.com/docs/install/introduction)
-- [Installation guide for developers (technical)](https://govuk-prototype-kit.herokuapp.com/docs/install/developer-install-instructions)
+By forking GOV.UK Prototype Kit (instead of cloning it like in this project), will make sure any changes made to the original repo can easily be fetched and merged to keep our toolkit up to date.
+By running the script we will get all the CCS we need when developing new prototypes and can update these assets when necessary.
 
-## Support
+## Security
+CCS is an advocate of responsible vulnerability disclosure. If you’ve found a vulnerability, we would like to know so we can fix it.
 
-The GOV.UK Prototype Kit is maintained by the Government Digital Service. If you’ve got a question or need support you can:
-
-* email [govuk-design-system-support@digital.cabinet-office.gov.uk](mailto:govuk-design-system-support@digital.cabinet-office.gov.uk)
-* [get in touch on Slack](https://ukgovernmentdigital.slack.com/messages/prototype-kit)([open in app](slack://channel?team=T04V6EBTR&amp;id=C0647LW4R))
-* [view known issues on GitHub](https://github.com/alphagov/govuk-prototype-kit/issues)
-
-## Contributing
-
-If you’ve got an idea or suggestion you can:
-
-* [get in touch on the developer Slack channel](https://ukgovernmentdigital.slack.com/messages/prototype-kit-dev)([open in app](slack://channel?team=T04V6EBTR&amp;id=C0E1063DW))
-* [create a GitHub issue](https://github.com/alphagov/govuk-prototype-kit/issues)
-
-### Security
-
-GDS is an advocate of responsible vulnerability disclosure. If you’ve found a vulnerability, we would like to know so we can fix it.
-
-For full details on how to tell us about vulnerabilities, [see our security policy](https://github.com/alphagov/govuk-prototype-kit/security/policy).
+For full details on how to tell us about vulnerabilities, [see our security policy](https://www.crowncommercial.gov.uk/about-ccs/vulnerability-disclosure-policy).
